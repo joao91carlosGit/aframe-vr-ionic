@@ -1,0 +1,7 @@
+{
+  "name": "zytro-preview",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

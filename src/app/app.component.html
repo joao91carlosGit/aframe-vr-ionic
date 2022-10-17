@@ -1,0 +1,80 @@
+<body>
+  <a-scene background="color: #FAFAFA"
+    inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
+    <a-assets>
+      <img id="room1" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2F1.jpg?v=1564408735128">
+      <img id="room2" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2F2.jpg?v=1564408735933">
+      <img id="room3" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2F3.jpg?v=1564408737583">
+      <img id="room4" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2F4.jpg?v=1564408736299">
+
+      <img id="info1" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fpanel-1.png?v=1564467657593">
+      <img id="info2" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fpanel-2.png?v=1564467657745">
+      <img id="info3" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fpanel-3.png?v=1564469664126">
+      <img id="info4" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fpanel-4.png?v=1564470362318">
+
+      <img id="hotspot" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fhotspot.png?v=1564471993959">
+      <img id="info-icon"
+        src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Finfo-icon.png?v=1564471994218">
+    </a-assets>
+    <!-- room teleport hotspots -->
+    <a-entity id="spots" hotspots>
+      <a-entity id="group-room1">
+        <a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1"
+          position="-10 0 0"  rotation="0 90 0"></a-image>
+      </a-entity>
+      <a-entity id="group-room2" scale="0 0 0">
+        <a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2"
+          position="10 0 2"  rotation="0 90 0"></a-image>
+        <a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2"
+          position="-10 0 -2"  rotation="0 90 0"></a-image>
+        <a-image spot="linkto:#room4;spotgroup:group-room4;infogroup:infogroup-room4;infoparent:infogroup-room2"
+          position="2 0 -10"  rotation="0 0 0"></a-image>
+      </a-entity>
+      <a-entity id="group-room3" scale="0 0 0">
+        <a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3"
+          position="10 0 4"  rotation="0 90 0"></a-image>
+      </a-entity>
+      <a-entity id="group-room4" scale="0 0 0">
+        <a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room4"
+          position="0 0 10"  rotation="0 0 0"></a-image>
+      </a-entity>
+    </a-entity>
+
+    <!-- info spots -->
+    <a-entity id="infos" infogroup>
+      <a-entity id="infogroup-room1">
+        <a-image infoicon="infolink:#info1" position="0 -1.2 -3"></a-image>
+      </a-entity>
+      <a-entity id="infogroup-room2" scale="0 0 0">
+        <a-image infoicon="infolink:#info4" position="-3 0 -3" rotation="0 90 0"></a-image>
+      </a-entity>
+      <a-entity id="infogroup-room3" scale="0 0 0">
+        <a-image infoicon="infolink:#info2" position="0 0 4"></a-image>
+        <a-image infoicon="infolink:#info4" position="3 0 -2"  rotation="0 90 0"></a-image>
+      </a-entity>
+      <a-entity id="infogroup-room4" scale="0 0 0">
+        <a-image infoicon="infolink:#info3" position="5 0 0" rotation="0 90 0"></a-image>
+      </a-entity>
+    </a-entity>
+
+    <a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls
+      animation__zoomin="property:camera.fov;dur:2000;to:50;startEvents:zoomin;"
+      animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
+
+      <a-entity id="cursor-visual" cursor="fuse:true;fuseTimeout:2000" material="shader:flat;color:#09B4FF"
+        position="0 0 -1" geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015;thetaLength:0"
+        animation__mouseenter="property: geometry.thetaLength; dir: alternate; dur: 2000;
+                              easing: easeInSine; from:0;to: 360;startEvents:startFuse;pauseEvents:stopFuse;autoplay:false"
+        animation__mouseleave="property: geometry.thetaLength; dir: alternate; dur: 500;
+                              easing: easeInSine; to: 0;startEvents:stopFuse;autoplay:false">
+        <a-entity geometry="primitive:ring;radiusOuter:0.015;radiusInner:0.01" material="shader:flat;color:#000000">
+        </a-entity>
+      </a-entity>
+      <a-plane id="camfadeplane" rotation="10 0.5 0" position="0 0 -0.5"
+        material="color:#000000;transparent:true;opacity:0" width="2" height="2"
+        animation__fadein="property:material.opacity;to:1;dur:2000;startEvents:camFadeIn"
+        animation__fadeout="property:material.opacity;to:0;dur:200;startEvents:camFadeOut"></a-plane>
+    </a-entity>
+    <a-sky id="skybox" src="#room1"></a-sky>
+  </a-scene>
+</body>
